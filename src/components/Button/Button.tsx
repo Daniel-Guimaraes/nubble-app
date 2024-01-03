@@ -1,29 +1,44 @@
 import React from 'react';
-import {ActivityIndicator} from 'react-native';
-import {Box} from '../Box/Box';
+import {TouchableOpacityBox, TouchableOpacityBoxProps} from '../Box/Box';
 import {Text} from '../Text/Text';
+import {buttonPresets} from './buttonPreset';
+import {ActivityIndicator} from '../ActivityIndicator/ActivityIndicator';
 
-interface ButtonProps {
+export type ButtonPreset = 'primary' | 'outline';
+
+interface ButtonProps extends TouchableOpacityBoxProps {
   text: string;
   loading?: boolean;
+  preset?: ButtonPreset;
+  disabled?: boolean;
 }
 
-export function Button({text, loading}: ButtonProps) {
+export function Button({
+  text,
+  loading,
+  disabled,
+  preset = 'primary',
+  ...touchableOpacityBoxProps
+}: ButtonProps) {
+  const buttonPreset = buttonPresets[preset][disabled ? 'disabled' : 'default'];
+
   return (
-    <Box
-      backgroundColor="buttonPrimary"
+    <TouchableOpacityBox
+      disabled={disabled || loading}
+      px="s20"
       height={50}
-      paddingHorizontal="s20"
       borderRadius={'s16'}
       alignItems="center"
-      justifyContent="center">
+      justifyContent="center"
+      {...buttonPreset.container}
+      {...touchableOpacityBoxProps}>
       {loading ? (
-        <ActivityIndicator />
+        <ActivityIndicator color={buttonPreset.content} />
       ) : (
-        <Text preset="paragraphMedium" bold style={{color: '#fff'}}>
+        <Text preset="paragraphMedium" bold color={buttonPreset.content}>
           {text}
         </Text>
       )}
-    </Box>
+    </TouchableOpacityBox>
   );
 }
