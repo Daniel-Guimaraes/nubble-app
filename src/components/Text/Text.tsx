@@ -58,7 +58,7 @@ function getFontFamily(
     case medium:
       return $fontFamily.medium;
     default:
-      return $fontFamily.Regular;
+      return $fontFamily.regular;
   }
 }
 
@@ -72,7 +72,7 @@ type TextVariants =
   | 'paragraphCaption'
   | 'paragraphCaptionSmall';
 
-const $fontSizes: Record<TextVariants, TextStyle> = {
+export const $fontSizes: Record<TextVariants, TextStyle> = {
   headingLarge: {fontSize: 32, lineHeight: 38.4},
   headingMedium: {fontSize: 22, lineHeight: 26.4},
   headingSmall: {fontSize: 18, lineHeight: 23.4},
@@ -85,7 +85,7 @@ const $fontSizes: Record<TextVariants, TextStyle> = {
   paragraphCaptionSmall: {fontSize: 10, lineHeight: 14},
 };
 
-const $fontFamily = {
+export const $fontFamily = {
   black: {fontFamily: 'Satoshi-Black'},
   blackItalic: {fontFamily: 'Satoshi-BlackItalic'},
   bold: {fontFamily: 'Satoshi-Bold'},
@@ -95,5 +95,5 @@ const $fontFamily = {
   lightItalic: {fontFamily: 'Satoshi-LightItalic'},
   medium: {fontFamily: 'Satoshi-Medium'},
   mediumItalic: {fontFamily: 'Satoshi-MediumItalic'},
-  Regular: {fontFamily: 'Satoshi-Regular'},
+  regular: {fontFamily: 'Satoshi-Regular'},
 };
