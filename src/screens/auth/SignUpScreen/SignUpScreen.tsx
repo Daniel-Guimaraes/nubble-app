@@ -1,32 +1,29 @@
 import React from 'react';
-
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
+import {useForm} from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {SignUpSchemaType, signUpSchema} from './signUpSchema';
 
 import {RootStackParamList} from '../../../routes/Routes';
 
+import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSuccess';
+
+import {Box} from '../../../components/Box/Box';
+import {Text} from '../../../components/Text/Text';
 import {Screen} from '../../../components/Screen/Screen';
 import {Button} from '../../../components/Button/Button';
-import {Text} from '../../../components/Text/Text';
-import {Box} from '../../../components/Box/Box';
-// import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSuccess';
-import {useForm} from 'react-hook-form';
 import {FormTextInput} from '../../../components/Form/FormTextInput';
 import {FormPasswordInput} from '../../../components/Form/FormPasswordInput';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
 
-type SignUpFormType = {
-  username: string;
-  fullName: string;
-  email: string;
-  password: string;
-};
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function SignUpScreen({navigation}: ScreenProps) {
-  // const {reset} = useResetNavigationSuccess();
+  const {reset} = useResetNavigationSuccess();
 
-  const {control, formState, handleSubmit} = useForm<SignUpFormType>({
+  const {control, formState, handleSubmit} = useForm<SignUpSchemaType>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       username: '',
       fullName: '',
@@ -36,16 +33,16 @@ export function SignUpScreen({navigation}: ScreenProps) {
     mode: 'onChange',
   });
 
-  const submitForm = (formData: SignUpFormType) => {
+  const submitForm = (formData: SignUpSchemaType) => {
     console.log(formData);
-    // reset({
-    //   title: 'Sua conta foi criada com sucesso!',
-    //   description: 'Agora é só fazer login na nossa plataforma',
-    //   icon: {
-    //     name: 'checkRound',
-    //     color: 'greenSuccess',
-    //   },
-    // });
+    reset({
+      title: 'Sua conta foi criada com sucesso!',
+      description: 'Agora é só fazer login na nossa plataforma',
+      icon: {
+        name: 'checkRound',
+        color: 'greenSuccess',
+      },
+    });
   };
 
   return (
@@ -58,7 +55,6 @@ export function SignUpScreen({navigation}: ScreenProps) {
         <FormTextInput
           control={control}
           name="username"
-          rules={{required: 'Username obrigatório'}}
           label="Seu username"
           placeholder="@"
         />
@@ -66,7 +62,6 @@ export function SignUpScreen({navigation}: ScreenProps) {
         <FormTextInput
           control={control}
           name="fullName"
-          rules={{required: 'Nome obrigatório'}}
           autoCapitalize="words"
           label="Nome completo"
           placeholder="Digite seu nome completo"
@@ -75,13 +70,6 @@ export function SignUpScreen({navigation}: ScreenProps) {
         <FormTextInput
           control={control}
           name="email"
-          rules={{
-            required: 'Email obrigatório',
-            pattern: {
-              value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-              message: 'Digite um e-mail válido',
-            },
-          }}
           label="E-mail"
           placeholder="Digite seu e-mail"
         />
@@ -89,13 +77,6 @@ export function SignUpScreen({navigation}: ScreenProps) {
         <FormPasswordInput
           control={control}
           name="password"
-          rules={{
-            required: 'Senha obrigatório',
-            minLength: {
-              value: 8,
-              message: 'Digite uma senha válida',
-            },
-          }}
           label="Senha"
           placeholder="Digite sua senha"
         />
