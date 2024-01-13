@@ -1,11 +1,18 @@
 import React from 'react';
 import {Screen} from '../../../components/Screen/Screen';
 import {Text} from '../../../components/Text/Text';
-import {TextInput} from '../../../components/TextInput/TextInput';
+
 import {Button} from '../../../components/Button/Button';
 import {RootStackParamList} from '../../../routes/Routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSuccess';
+import {useForm} from 'react-hook-form';
+import {
+  ForgotPasswordSchemaType,
+  forgotPasswordSchema,
+} from './ForgotPasswordSchema';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {FormTextInput} from '../../../components/Form/FormTextInput';
 
 type ScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -16,7 +23,17 @@ type ScreenProps = NativeStackScreenProps<
 export function ForgotPasswordScreen({navigation}: ScreenProps) {
   const {reset} = useResetNavigationSuccess();
 
-  const submitForm = () => {
+  const {control, formState, handleSubmit} = useForm<ForgotPasswordSchemaType>({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: {
+      email: '',
+    },
+    mode: 'onChange',
+  });
+
+  const submitForm = (formData: ForgotPasswordSchemaType) => {
+    console.log(formData);
+
     reset({
       title: 'Enviamos as instruções para seu e-mail',
       description:
@@ -38,9 +55,19 @@ export function ForgotPasswordScreen({navigation}: ScreenProps) {
         Digite seu e-mail e enviaremos as instruções para redefinição de senha
       </Text>
 
-      <TextInput label="E-mail" placeholder="Digite seu e-mail" />
+      <FormTextInput
+        control={control}
+        name="email"
+        label="E-mail"
+        placeholder="Digite seu e-mail"
+      />
 
-      <Button onPress={submitForm} text="Recuperar senha" mt="s48" />
+      <Button
+        disabled={!formState.isValid}
+        onPress={handleSubmit(submitForm)}
+        text="Recuperar senha"
+        mt="s48"
+      />
     </Screen>
   );
 }

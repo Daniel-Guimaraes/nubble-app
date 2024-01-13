@@ -10,16 +10,14 @@ import {Button} from '../../../components/Button/Button';
 import {Text} from '../../../components/Text/Text';
 import {FormTextInput} from '../../../components/Form/FormTextInput';
 import {FormPasswordInput} from '../../../components/Form/FormPasswordInput';
+import {LoginSchemaType, loginSchema} from './LoginShema';
+import {zodResolver} from '@hookform/resolvers/zod';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 
-type LoginFormType = {
-  email: string;
-  password: string;
-};
-
 export function LoginScreen({navigation}: ScreenProps) {
-  const {control, formState, handleSubmit} = useForm<LoginFormType>({
+  const {control, formState, handleSubmit} = useForm<LoginSchemaType>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -35,7 +33,7 @@ export function LoginScreen({navigation}: ScreenProps) {
     navigation.navigate('ForgotPasswordScreen');
   };
 
-  const submitForm = (formData: LoginFormType) => {
+  const submitForm = (formData: LoginSchemaType) => {
     console.log(formData);
   };
 
@@ -50,13 +48,6 @@ export function LoginScreen({navigation}: ScreenProps) {
       <FormTextInput
         control={control}
         name="email"
-        rules={{
-          required: 'Email obrigatório',
-          pattern: {
-            value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-            message: 'Digite um e-mail válido',
-          },
-        }}
         label="E-mail"
         placeholder="Digite seu e-mail"
         boxProps={{mb: 's16'}}
@@ -65,13 +56,6 @@ export function LoginScreen({navigation}: ScreenProps) {
       <FormPasswordInput
         control={control}
         name="password"
-        rules={{
-          required: 'Senha obrigatório',
-          minLength: {
-            value: 8,
-            message: 'Digite uma senha válida',
-          },
-        }}
         label="Senha"
         placeholder="Digite sua senha"
       />
