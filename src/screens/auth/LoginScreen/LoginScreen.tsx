@@ -3,13 +3,16 @@ import {useForm} from 'react-hook-form';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {RootStackParamList} from '../../../routes/Routes';
+import {RootStackParamList} from '@routes';
 
-import {Screen} from '../../../components/Screen/Screen';
-import {Button} from '../../../components/Button/Button';
-import {Text} from '../../../components/Text/Text';
-import {FormTextInput} from '../../../components/Form/FormTextInput';
-import {FormPasswordInput} from '../../../components/Form/FormPasswordInput';
+import {
+  Screen,
+  Button,
+  Text,
+  FormTextInput,
+  FormPasswordInput,
+} from '@components';
+
 import {LoginSchemaType, loginSchema} from './LoginShema';
 import {zodResolver} from '@hookform/resolvers/zod';
 

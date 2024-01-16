@@ -15,7 +15,7 @@ import {
   spacingShorthand,
   SpacingShorthandProps,
 } from '@shopify/restyle';
-import {ThemeType} from '../../theme/theme';
+import {ThemeType} from '@theme';
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
 export const Box = createBox<ThemeType>();

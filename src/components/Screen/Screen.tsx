@@ -3,14 +3,11 @@ import {KeyboardAvoidingView, Platform} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
-import {useAppSafeArea} from '../../hooks/useAppSafeArea';
-import {useAppTheme} from '../../hooks/useAppTheme';
+import {useAppSafeArea, useAppTheme} from '@hooks';
 
-import {Box, TouchableOpacityBox} from '../Box/Box';
+import {Box, TouchableOpacityBox, Icon, Text} from '@components';
 
 import {ScrollViewContainer, ViewContainer} from './components/ScreenContainer';
-import {Icon} from '../Icon/Icon';
-import {Text} from '../Text/Text';
 
 interface ScreenProps {
   children: React.ReactNode;

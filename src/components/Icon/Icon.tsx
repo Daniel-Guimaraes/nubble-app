@@ -1,8 +1,11 @@
 import React from 'react';
+import {Pressable} from 'react-native';
+
+import {useAppTheme} from '@hooks';
+import {ThemeColors} from '@theme';
+
 import {EyeOnIcon} from '../../assets/icons/components/EyeOnIcon';
 import {EyeOffIcon} from '../../assets/icons/components/EyeOffIcon';
-import {useAppTheme} from '../../hooks/useAppTheme';
-import {ThemeColors} from '../../theme/theme';
 import {ArrowLeftIcon} from '../../assets/icons/components/ArrowLeftIcon';
 import {ArrowRightIcon} from '../../assets/icons/components/ArrowRightIcon';
 import {BellIcon} from '../../assets/icons/components/BellIcon';
@@ -26,7 +29,6 @@ import {ProfileFillIcon} from '../../assets/icons/components/ProfileFillIcon';
 import {SearchIcon} from '../../assets/icons/components/SearchIcon';
 import {SettingsIcon} from '../../assets/icons/components/SettingsIcon';
 import {TrashIcon} from '../../assets/icons/components/TrashIcon';
-import {Pressable} from 'react-native';
 import {CheckRoundIcon} from '../../assets/icons/components/CheckRoundIcon';
 import {ErrorRoundIcon} from '../../assets/icons/components/ErrorRoundIcon';
 import {MessageRoundIcon} from '../../assets/icons/components/MessageRoundIcon';
