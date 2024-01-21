@@ -3,6 +3,7 @@ export * from './Icon/Icon';
 export * from './Text/Text';
 export * from './Button/Button';
 export * from './Screen/Screen';
+export * from './PostItem/PostItem';
 export * from './Form/FormTextInput';
 export * from './Button/buttonPreset';
 export * from './TextInput/TextInput';
